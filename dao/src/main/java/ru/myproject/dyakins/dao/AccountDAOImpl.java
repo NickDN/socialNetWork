@@ -10,13 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountDAOImpl implements AccountDAO {
-    private static final String SELECT_ALL = "SELECT * FROM accounts";
+    private static final String SELECT_ALL = "SELECT * FROM socialDB.accounts";
     private static final String SELECT_BY_ID = SELECT_ALL + " WHERE id=?";
     private static final String SELECT_BY_EMAIL = SELECT_ALL + " WHERE email=?";
-    private static final String INSERT = "INSERT INTO accounts VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
-    private static final String UPDATE = "UPDATE accounts SET firstName=?, secondName=?, middleName=?, gender=?," +
+    private static final String INSERT =
+            "INSERT INTO socialDB.accounts (firstName, secondname,middlename,gender,birthdate,homeaddress,workaddress,email,icq,skype,additionalinfo,password )" +
+                    " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+    private static final String UPDATE = "UPDATE socialDB.accounts(firstName,secondname,middleName,gender)" +
+            " SET firstName=?, secondName=?, middleName=?, gender=?," +
             "birthDate=?, homeAddress=?, workAddress=?, email=?, icq=?, skype=?, additionalInfo=?, password=? WHERE id=?";
-    private static final String DELETE_BY_ID = "DELETE FROM accounts WHERE id=?";
+    private static final String DELETE_BY_ID = "DELETE FROM socialDB.accounts WHERE id=?";
 
     @Override
     public Account get(int id) {
@@ -85,7 +88,7 @@ public class AccountDAOImpl implements AccountDAO {
                     }
                 }
             } catch (SQLException e) {
-                throw new DAOException(String.valueOf(e.getErrorCode()));
+                throw new DAOException(e);
             } finally {
                 ConnectionFactory.getInstance().releaseConnection(connection);
             }
@@ -104,34 +107,6 @@ public class AccountDAOImpl implements AccountDAO {
         }
         return account;
     }
-
-    /*private int lastInsertedId(PreparedStatement statement) throws SQLException {
-        ResultSet resultSet = statement.getGeneratedKeys();
-        if (resultSet == null || !resultSet.next()) {
-            return -1;
-        }
-        return resultSet.getInt(1);
-    }*/
-
-    /*@Override
-    public boolean update(Account account) {
-        if (!account.isNew()) {
-            Connection connection = ConnectionFactory.getInstance().getConnection();
-            try (PreparedStatement ps = connection.prepareStatement(UPDATE)) {
-                setValuesInDatabase(account, ps);
-                ps.setInt(12, account.getId());
-                if (ps.executeUpdate() == 1) {
-                    // this.connection.commit();
-                    return true;
-                }
-            } catch (SQLException e) {
-                throw new DAOException(e.getLocalizedMessage());
-            } finally {
-                ConnectionFactory.getInstance().releaseConnection(connection);
-            }
-        }
-        return false;
-    }*/
 
     @Override
     public boolean delete(int id) {

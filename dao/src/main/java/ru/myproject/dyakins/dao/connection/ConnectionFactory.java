@@ -74,14 +74,15 @@ public class ConnectionFactory {
     private Connection createConnection() throws DAOException {
         Connection connection;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            DriverManager.registerDriver(new org.postgresql.Driver());
+           // Class.forName("com.postgresql.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
             System.out.println(e);
             throw new DAOException(NO_CONNECTION + e.getLocalizedMessage());
-        } catch (ClassNotFoundException e) {
+        } /*catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
-        }
+        }*/
         return connection;
     }
 

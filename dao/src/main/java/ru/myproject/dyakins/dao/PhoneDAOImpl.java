@@ -1,15 +1,11 @@
 package ru.myproject.dyakins.dao;
 
-import com.mysql.jdbc.Statement;
 import ru.myproject.dyakins.dao.connection.ConnectionFactory;
 import ru.myproject.dyakins.dao.exception.DAOException;
 import ru.myproject.dyakins.phone.Phone;
 import ru.myproject.dyakins.phone.PhoneType;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
