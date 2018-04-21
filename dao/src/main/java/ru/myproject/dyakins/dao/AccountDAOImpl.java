@@ -14,7 +14,7 @@ public class AccountDAOImpl implements AccountDAO {
     private static final String SELECT_BY_ID = SELECT_ALL + " WHERE id=?";
     private static final String SELECT_BY_EMAIL = SELECT_ALL + " WHERE email=?";
     private static final String INSERT =
-            "INSERT INTO socialDB.accounts (firstName, secondname,middlename,gender,birthdate,homeaddress,workaddress,email,icq,skype,additionalinfo,password )" +
+            "INSERT INTO socialDB.accounts (id,firstName, secondname,middlename,gender,birthdate,homeaddress,workaddress,email,icq,skype,additionalinfo,password )" +
                     " VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
     private static final String UPDATE = "UPDATE socialDB.accounts(firstName,secondname,middleName,gender)" +
             " SET firstName=?, secondName=?, middleName=?, gender=?," +
